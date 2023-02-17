@@ -24,7 +24,7 @@ hs_err_pid*
 replay_pid*
 
 #properties
-application.properties
+*.properties
 
 #idea
 .idea

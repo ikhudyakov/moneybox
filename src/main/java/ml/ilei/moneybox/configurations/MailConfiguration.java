@@ -3,12 +3,14 @@ package ml.ilei.moneybox.configurations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
 @Configuration
+@PropertySource("classpath:properties/mail.properties")
 public class MailConfiguration {
     @Value("${spring.mail.host}")
     private String host;
@@ -20,7 +22,7 @@ public class MailConfiguration {
     private String password;
 
     @Value("${spring.mail.port}")
-    private int potr;
+    private int port;
 
     @Value("${spring.mail.protocol}")
     private String protocol;
@@ -34,7 +36,7 @@ public class MailConfiguration {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         mailSender.setHost(host);
-        mailSender.setPort(potr);
+        mailSender.setPort(port);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
 

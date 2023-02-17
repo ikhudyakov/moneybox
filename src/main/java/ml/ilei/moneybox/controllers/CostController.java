@@ -7,8 +7,6 @@ import ml.ilei.moneybox.domains.User;
 import ml.ilei.moneybox.repositories.CategoryRepository;
 import ml.ilei.moneybox.repositories.CostsRepository;
 import ml.ilei.moneybox.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,18 +26,17 @@ import java.sql.Date;
 
 @Controller
 public class CostController {
+    private final UserRepository userRepository;
 
-    @Value("${upload.path}")
-    private String uploadPath;
+    private final CostsRepository costsRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private CostsRepository costsRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
+    public CostController(UserRepository userRepository, CostsRepository costsRepository, CategoryRepository categoryRepository) {
+        this.userRepository = userRepository;
+        this.costsRepository = costsRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     //Страница со всеми расходами
     @GetMapping("/costs")
@@ -81,7 +77,6 @@ public class CostController {
             @PageableDefault(sort = {"date", "id"}, direction = Sort.Direction.DESC) Pageable pageable,
             @AuthenticationPrincipal User user,
             @Valid Costs cost,
-            BindingResult bindingResult,
             Model model
     ) throws IOException {
         cost.setUser(user);
@@ -177,7 +172,7 @@ public class CostController {
     }
 
     //пзапись в файл
-    public void writeToFile(byte[] data, File file) throws IOException{
+    public void writeToFile(byte[] data, File file) throws IOException {
         FileOutputStream out = new FileOutputStream(file);
         out.write(data);
         out.close();

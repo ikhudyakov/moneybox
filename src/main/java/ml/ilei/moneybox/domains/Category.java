@@ -1,7 +1,5 @@
 package ml.ilei.moneybox.domains;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 
 @Entity

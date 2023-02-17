@@ -17,8 +17,11 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public WebSecurityConfiguration(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,10 +43,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
-    }
-
-    @Override
-    public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity.ignoring().antMatchers(POST, "/api/**");
     }
 }
