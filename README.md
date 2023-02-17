@@ -31,7 +31,7 @@ Stack: Java, (Spring Boot, MVC, Security), PostgreSQL, Freemarker
 <p align="center">
   <img alt="settings" src="screenshots/settings.png">
 </p>
-<div>Смена Email, смена пароля, привязка Telegram id для управления расходами через <a href="https://github.com/ikhudyakov/moneyBot>">телеграм бота </a></div>
+<div>Смена Email, смена пароля, привязка Telegram id для управления расходами через <a href="https://github.com/ikhudyakov/moneyBot">телеграм бота </a></div>
 
 ## 6. Отправка отчета:
 <p align="center">
